@@ -1,0 +1,30 @@
+.paginationButtonsBlock button {
+    width: 45px;
+    background-color: #31ad07;
+    margin-right: 10px;
+    border: 1px solid #31ad07;
+    border-radius: 50%;
+    color: white;
+    padding: 9px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.paginationButtonsBlock .clickedButton {
+    background-color: #209041;
+    border: 1px solid #209041;
+}
+
+.paginationButtonsBlock .removeButton {
+    display: none;
+}
+
+.dots {
+    background-color: #37c906;
+    margin-right: 10px;
+    border: 1px solid #37c906;
+    border-radius: 50%;
+    color: white;
+    padding: 9px;
+    font-size: 22px;
+}

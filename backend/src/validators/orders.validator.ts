@@ -5,7 +5,7 @@ import { SortOrderEnum } from "../enums/sortOrder.enum";
 
 export class OrdersValidator {
   public static listQuery = joi.object({
-    limit: joi.number().min(1).max(20).default(20),
+    limit: joi.number().min(1).max(25).default(25),
     page: joi.number().default(1),
     sortOrder: joi
       .string()

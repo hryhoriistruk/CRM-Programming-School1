@@ -1,0 +1,29 @@
+.table {
+    width: 100vw;
+    border-collapse: collapse;
+}
+
+.tableHead {
+    text-align: left;
+    font-size: 18px;
+    background-color: #209041;
+    color: white;
+}
+
+.tableHead tr th {
+    padding: 7px;
+    border: 1px solid #ddd;
+}
+
+.tableBody tr:nth-child(1n) {
+    background-color: white;
+}
+
+.tableBody tr:nth-child(2n) {
+    background-color: #eae8e8;
+}
+
+.tableBody tr td {
+    padding: 5px 0 5px 5px;
+}
+
