@@ -1,0 +1,342 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is api for CRM Programming School",
+    "version": "1.0.0",
+    "title": " API"
+  },
+  "tags": [],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/api/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login user",
+        "description": "Open endpoint for login user",
+        "operationId": "login",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/api/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Refresh pair of tokens",
+        "description": "Closed endpoint for refresh tokens for user",
+        "operationId": "refresh",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [{"jwt_token": []}],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tokens"
+            }
+          },
+          "401": {
+            "description": "Token is not provided or not valid"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Get list of all orders",
+        "description": "This is closed endpoint for getting all orders",
+        "operationId": "getOrders",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [{"jwt_token": []}],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OrdersListResponse"
+            }
+          },
+          "401": {
+            "description": "Token is not provided or not valid"
+          },
+          "404": {
+            "description": "Orders not found"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "jwt_token": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "admin"
+            },
+            "surname": {
+              "type": "string",
+              "example": "admin"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "example": "hello23@gmail.com"
+            },
+            "phone": {
+              "type": "string",
+              "example": "+38093345000"
+            },
+            "role": {
+              "type": "string",
+              "enum": ["admin", "manager"],
+              "example": "admin"
+            },
+            "isActive": {
+              "type": "boolean",
+              "example": true
+            },
+            "_id": {
+              "type": "string",
+              "example": "66e9105887e4475d35c0d601"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-09-17T05:15:04.994Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-09-17T05:15:04.994Z"
+            }
+          },
+          "required": [
+            "_id",
+            "name",
+            "surname",
+            "email",
+            "role",
+            "isActive",
+            "createdAt",
+            "updatedAt"
+          ]
+        },
+        "tokens": {
+          "type": "object",
+          "properties": {
+            "accessToken": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmU5MTA1ODg3ZTQ0NzVkMzVjMGQ2MDEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjU1MDEwNSwiZXhwIjoxNzI2NTYwOTA1fQ.cU1WXGCg6FJrEaEqPFrC5FYkSAbR5oDXcjG95wOI1lM"
+            },
+            "refreshToken": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmU5MTA1ODg3ZTQ0NzVkMzVjMGQ2MDEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjU1MDEwNSwiZXhwIjoxNzI2NjM2NTA1fQ.u4BDLOPi4RUZEXsL6qSznR-Ah64lm3wU2V8xZGX2HvQ"
+            }
+          },
+          "required": [
+            "accessToken",
+            "refreshToken"
+          ]
+        }
+      },
+      "required": [
+        "user",
+        "tokens"
+      ]
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "admin@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "admin"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "Tokens": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmU5MTA1ODg3ZTQ0NzVkMzVjMGQ2MDEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjU1MDEwNSwiZXhwIjoxNzI2NTYwOTA1fQ.cU1WXGCg6FJrEaEqPFrC5FYkSAbR5oDXcjG95wOI1lM"
+        },
+        "refreshToken": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmU5MTA1ODg3ZTQ0NzVkMzVjMGQ2MDEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNjU1MDEwNSwiZXhwIjoxNzI2NjM2NTA1fQ.u4BDLOPi4RUZEXsL6qSznR-Ah64lm3wU2V8xZGX2HvQ"
+        }
+      },
+      "required": [
+        "accessToken",
+        "refreshToken"
+      ]
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "66e2d8779a4fca98e3380fc4"
+        },
+        "name": {
+          "type": "string",
+          "example": "Anton23"
+        },
+        "surname": {
+          "type": "string",
+          "example": "Anton23"
+        },
+        "email": {
+          "type": "string",
+          "example": "moderator@gmail.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+380933453453"
+        },
+        "age": {
+          "type": "integer",
+          "example": "25"
+        },
+        "course": {
+          "type": "string",
+          "enum": ["FS", "QACX", "JCX", "JSCX", "FE", "PCX"],
+          "example": "FS"
+        },
+        "course_format": {
+          "type": "string",
+          "enum": ["static", "online"],
+          "example": "static"
+        },
+        "course_type": {
+          "type": "string",
+          "enum": ["pro", "minimal", "premium", "incubator", "vip"],
+          "example": "pro"
+        },
+        "status": {
+          "type": ["string", "null"],
+          "enum": ["In work", "New", "Aggre", "Disaggre", "Dudbbing"],
+          "example": "active"
+        },
+        "sum": {
+          "type": ["integer", "null"],
+          "example": "4000"
+        },
+        "already_paid": {
+          "type": ["integer", "null"],
+          "example": "1000"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2024-09-12T12:03:03.740Z"
+        }
+      },
+      "required": [
+        "_id",
+        "name",
+        "surname",
+        "email",
+        "phone",
+        "age",
+        "course",
+        "course_format",
+        "course_type",
+        "sum",
+        "already_paid",
+        "createdAt",
+        "status"
+      ]
+    },
+    "OrdersListResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Order"
+          },
+          "description": "List of user objects."
+        },
+        "total": {
+          "type": "integer",
+          "description": "Total number of orders."
+        },
+        "sortBy": {
+          "type": "string",
+          "description": "Field by which the results are ordered."
+        },
+        "sortOrder": {
+          "type": "string",
+          "description": "Order of the results, e.g., ascending or descending."
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Number of items per page."
+        },
+        "page": {
+          "type": "integer",
+          "description": "Current page number."
+        }
+      },
+      "required": [
+        "data",
+        "total",
+        "orderBy",
+        "order",
+        "limit",
+        "page"
+      ]
+    }
+  }
+}
+
