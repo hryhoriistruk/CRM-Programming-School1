@@ -13,6 +13,7 @@
 .tableHead tr th {
     padding: 7px;
     border: 1px solid #ddd;
+    cursor: pointer;
 }
 
 .tableBody tr:nth-child(1n) {

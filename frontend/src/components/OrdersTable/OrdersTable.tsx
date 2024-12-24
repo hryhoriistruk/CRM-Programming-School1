@@ -21,7 +21,7 @@ const OrdersTable: FC<IOrdersTableProps> = ({orders, handleSortChange, sortBy, s
           <th onClick={() => handleSortChange('email')}>Email {sortBy === 'email' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('phone')}>Phone {sortBy === 'phone' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('age')}>Age {sortBy === 'age' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
-          <th onClick={() => handleSortChange('age')}>Course {sortBy === 'course' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
+          <th onClick={() => handleSortChange('course')}>Course {sortBy === 'course' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('course_format')}>Course_format {sortBy === 'course_format' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('course_type')}>Course_type {sortBy === 'course_type' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('status')}>Status {sortBy === 'status' && (sortOrder === 'asc' ? '↑' : '↓')}</th>

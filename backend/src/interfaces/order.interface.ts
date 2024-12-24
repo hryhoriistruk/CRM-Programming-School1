@@ -18,7 +18,7 @@ export interface IOrderInterface {
   sum: number | null;
   already_paid: number | null;
   created_at: Date;
-  status: StatusEnum;
+  status: StatusEnum | null;
   updated_at?: Date;
 }
 

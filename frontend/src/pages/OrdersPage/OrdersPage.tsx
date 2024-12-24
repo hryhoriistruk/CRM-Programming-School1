@@ -12,6 +12,7 @@ const OrdersPage = () => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState<IOrderModel[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [error, setError] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -28,6 +29,7 @@ const OrdersPage = () => {
         }
       } catch (e) {
         const axiosError = e as AxiosError;
+        console.log(axiosError);
         if (axiosError && axiosError?.response?.status === 401) {
           try {
             await authService.refresh();
@@ -40,6 +42,13 @@ const OrdersPage = () => {
             setOrders(response.data)
           }
         }
+
+        if (axiosError && (axiosError?.response?.status === 400 || axiosError?.response?.status === 404)) {
+          setError(axiosError?.response?.data as string)
+        }
+
+
+
       }
     }
 
@@ -60,6 +69,7 @@ const OrdersPage = () => {
     <div className={styles.container}>
       <h1>Orders</h1>
       <OrdersTable orders={orders} handleSortChange={handleSortChange} sortBy={sortBy} sortOrder={sortOrder} />
+      {error && <div className={styles.error}>Error: {error}</div>}
       <div className={styles.pagination}>
         <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange}/>
       </div>

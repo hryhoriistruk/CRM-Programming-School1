@@ -8,3 +8,9 @@
     text-align: center;
 }
 
+.error {
+    color: red;
+    font-size: 25px;
+    text-align: center;
+
+}
