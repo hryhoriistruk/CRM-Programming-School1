@@ -17,7 +17,7 @@ Ensure you have Docker and Docker Compose installed on your system:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/anton-moskalenko-kh/crm-programming-school.git
+   git clone https://github.com/hryhoriistruk/CRM-Programming-School1.git
    ```
 
 2. **Install dependencies:**  
