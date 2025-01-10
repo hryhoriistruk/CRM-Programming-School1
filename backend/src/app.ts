@@ -7,6 +7,7 @@ import swaggerSpec from "./docs/swagger.json";
 import { ApiError } from "./errors/api-error";
 import { createFirstManager } from "./helpers/createFirstAdmin";
 import { authRouter } from "./routers/auth.router";
+import { groupsRouter } from "./routers/groups.router";
 import { orderRouter } from "./routers/order.router";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", authRouter);
 app.use("/orders", orderRouter);
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/groups", groupsRouter);
 
 app.use(
   "*",

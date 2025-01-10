@@ -2,6 +2,7 @@ import {CourseEnum} from "../enums/course.enum";
 import {CourseFormatEnum} from "../enums/course-format.enum";
 import {CourseTypeEnum} from "../enums/course-type.enum";
 import {StatusEnum} from "../enums/status.enum";
+import {ICommentData } from "./ICommentModel";
 
 export interface IOrderModel {
   _id?: string;
@@ -17,4 +18,9 @@ export interface IOrderModel {
   already_paid: number | null;
   created_at: string;
   status: StatusEnum;
+  manager: string | null;
+  group: string | null;
+  message: string;
+  utm: string;
+  comments: ICommentData[] | [];
 }

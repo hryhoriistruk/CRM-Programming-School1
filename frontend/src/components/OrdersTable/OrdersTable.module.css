@@ -1,6 +1,8 @@
 .table {
-    width: 100vw;
+    width: 100%;
     border-collapse: collapse;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .tableHead {
@@ -24,7 +26,14 @@
     background-color: #eae8e8;
 }
 
+.tableBody tr:hover {
+    background-color: #209041;
+    color: white;
+    cursor: pointer;
+}
+
 .tableBody tr td {
+    box-sizing: border-box;
     padding: 5px 0 5px 5px;
 }
 

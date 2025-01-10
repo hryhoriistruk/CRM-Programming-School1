@@ -21,6 +21,11 @@ export class OrdersPresenter {
       already_paid: data.already_paid,
       created_at: data.created_at,
       status: data.status,
+      manager: data.manager,
+      group: data.group,
+      msg: data.msg,
+      utm: data.utm,
+      comments: data.comments,
     };
   }
 

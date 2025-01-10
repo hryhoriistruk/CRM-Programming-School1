@@ -27,6 +27,14 @@ class AuthController {
       next(e);
     }
   }
+
+  public async checkToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.status(200).json();
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export const authController = new AuthController();

@@ -4,6 +4,7 @@ import { CourseTypeEnum } from "../enums/course-type.enum";
 import { OrderListSortByEnum } from "../enums/order-list-sort-by.enum";
 import { SortOrderEnum } from "../enums/sortOrder.enum";
 import { StatusEnum } from "../enums/status.enum";
+import { CommentInterface } from "./comment.interface";
 
 export interface IOrderInterface {
   _id?: string;
@@ -20,6 +21,11 @@ export interface IOrderInterface {
   created_at: Date;
   status: StatusEnum | null;
   updated_at?: Date;
+  manager: string | null;
+  group: string | null;
+  msg: string | null;
+  utm: string;
+  comments: CommentInterface[] | [];
 }
 
 export interface IOrderResponse
@@ -38,6 +44,11 @@ export interface IOrderResponse
     | "already_paid"
     | "created_at"
     | "status"
+    | "manager"
+    | "group"
+    | "msg"
+    | "utm"
+    | "comments"
   > {}
 
 export interface IOrderListQuery {

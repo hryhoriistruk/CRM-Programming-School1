@@ -1,6 +1,9 @@
 import { SortOrder } from "mongoose";
 
 import { OrderListSortByEnum } from "../enums/order-list-sort-by.enum";
+import { StatusEnum } from "../enums/status.enum";
+import { ApiError } from "../errors/api-error";
+import { CommentInterface } from "../interfaces/comment.interface";
 import {
   IOrderInterface,
   IOrderListQuery,
@@ -68,6 +71,49 @@ class OrderRepository {
         throw new Error("Invalid orderBy");
     }
     return sortObj;
+  }
+
+  public async addCommentToOrder(
+    orderId: string,
+    comment: CommentInterface,
+  ): Promise<IOrderInterface> {
+    const order = await OrderModel.findById(orderId);
+    if (!order) {
+      throw new ApiError("Order not found", 404);
+    }
+
+    if (order.manager === comment.manager || order.manager === null) {
+      const updateData = {
+        $push: {
+          comments: {
+            comment: comment.comment,
+            manager: comment.manager,
+            date: comment.date,
+          },
+        },
+      };
+
+      if (order.status === null || order.status === StatusEnum.NEW) {
+        updateData["status"] = StatusEnum.IN_WORK;
+      }
+
+      if (order.manager === null) {
+        updateData["manager"] = comment.manager;
+      }
+
+      const updatedOrder: IOrderInterface | null =
+        await OrderModel.findByIdAndUpdate(orderId, updateData, {
+          returnDocument: "after",
+        });
+
+      if (!updatedOrder) {
+        throw new ApiError("Failed to update order", 500);
+      }
+
+      return updatedOrder;
+    } else {
+      throw new ApiError("You can't add comment to this order", 403);
+    }
   }
 }
 

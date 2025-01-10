@@ -7,13 +7,14 @@ import {IOrderModel} from "../../models/IOrderModel";
 import OrdersTable from "../../components/OrdersTable/OrdersTable";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from './Orders.module.css'
+import {useAppDispatch, useAppSelector} from "../../redux/store";
+import {ordersActions} from "../../redux/slices/orderSlice";
 
 const OrdersPage = () => {
   const navigate = useNavigate();
-  const [orders, setOrders] = useState<IOrderModel[]>([]);
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [error, setError] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
+  const {orders, totalPages, error} = useAppSelector(state => state.orders);
 
   const currentPage = Number(searchParams.get('page')) || 1;
   const sortBy = searchParams.get('sortBy') || 'created_at';
@@ -21,40 +22,18 @@ const OrdersPage = () => {
 
   useEffect(() => {
     const getOrders = async () => {
-      try {
-        const response = await ordersService.getOrders(currentPage, sortBy, sortOrder)
-        if (response) {
-          setOrders(response.data)
-          setTotalPages(Math.ceil(response.total / (response.limit || 25)))
-        }
-      } catch (e) {
-        const axiosError = e as AxiosError;
-        console.log(axiosError);
-        if (axiosError && axiosError?.response?.status === 401) {
+        const response = await dispatch(ordersActions.fetchOrders({currentPage, sortBy, sortOrder}))
+        if (ordersActions.fetchOrders.rejected.match(response)) {
           try {
             await authService.refresh();
+            await dispatch(ordersActions.fetchOrders({currentPage, sortBy, sortOrder}))
           } catch (e) {
             return navigate('/login');
           }
-
-          const response = await ordersService.getOrders(currentPage, sortBy, sortOrder)
-          if (response) {
-            setOrders(response.data)
-          }
         }
-
-        if (axiosError && (axiosError?.response?.status === 400 || axiosError?.response?.status === 404)) {
-          setError(axiosError?.response?.data as string)
-        }
-
-
-
       }
-    }
-
     getOrders()
-
-  }, [currentPage, sortBy, sortOrder]);
+  }, [dispatch, currentPage, sortBy, sortOrder]);
 
   const handlePageChange = (page: number) => {
     setSearchParams({ page: page.toString(), sortBy, sortOrder });

@@ -19,4 +19,10 @@ router.post(
   authController.refresh,
 );
 
+router.post(
+  "/checkToken",
+  authMiddleware.checkAccessToken,
+  authController.checkToken,
+);
+
 export const authRouter = router;

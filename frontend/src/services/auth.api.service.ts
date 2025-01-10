@@ -11,34 +11,45 @@ const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use((request) => {
-  if (localStorage.getItem('tokenPair') && request.url !== '/login') {
+  if (localStorage.getItem('tokenPair') && request.url !== '/refresh') {
+    request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorageData<ITokenPair>('tokenPair').accessToken);
+  } else if (localStorage.getItem('tokenPair') && request.url === '/refresh') {
     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorageData<ITokenPair>('tokenPair').refreshToken);
   }
+
   return request;
 })
 
 const authService = {
-  login: async (authData: ILogin): Promise<boolean> => {
+  login: async (authData: ILogin): Promise<{ isAuth: boolean; response: IAuthResponse | null }> => {
     let response;
     try {
       response = await axiosInstance.post<IAuthResponse>(urls.login.base, authData)
       localStorage.setItem('tokenPair', JSON.stringify(response.data.tokens));
-      console.log(response)
+      return { isAuth: true, response: response.data };
     } catch (e) {
       let axiosError = e as AxiosError;
       if (axiosError?.response?.data === "Invalid credentials" && axiosError?.response?.status === 401) {
-        return false;
+        throw new Error("Invalid credentials")
       }
+      console.error('Error during login:', e);
+      throw e;
     }
 
-    return !!(response?.data?.tokens?.accessToken && response.data?.tokens?.refreshToken);
   },
 
   refresh: async () => {
     const refreshToken = retrieveLocalStorageData<ITokenPair>('tokenPair').refreshToken;
     const response = await axiosInstance.post<ITokenPair>(urls.refresh.base, {refreshToken});
     localStorage.setItem('tokenPair', JSON.stringify(response.data));
+  },
+
+  checkToken: async ()=> {
+    const accessToken = retrieveLocalStorageData<ITokenPair>('tokenPair').accessToken;
+    const response = await axiosInstance.post<ITokenPair>('checkToken', {accessToken});
+    return response.status
   }
+
 
 }
 

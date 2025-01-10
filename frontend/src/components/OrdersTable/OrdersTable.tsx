@@ -27,7 +27,9 @@ const OrdersTable: FC<IOrdersTableProps> = ({orders, handleSortChange, sortBy, s
           <th onClick={() => handleSortChange('status')}>Status {sortBy === 'status' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('sum')}>Sum {sortBy === 'sum' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('already_paid')}>Already Paid {sortBy === 'already_paid' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
+          <th onClick={() => handleSortChange('group')}>Group {sortBy === 'group' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
           <th onClick={() => handleSortChange('created_at')}>Created_at {sortBy === 'created_at' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
+          <th onClick={() => handleSortChange('manager')}>Manager {sortBy === 'manager' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
         </tr>
       </thead>
       <tbody className={styles.tableBody}>

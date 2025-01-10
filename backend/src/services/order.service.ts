@@ -1,4 +1,5 @@
 import { ApiError } from "../errors/api-error";
+import { CommentInterface } from "../interfaces/comment.interface";
 import {
   IOrderListQuery,
   IOrderResponseList,
@@ -14,6 +15,15 @@ class OrderService {
     }
 
     return OrdersPresenter.toResponseList(orders, total, query);
+  }
+
+  public async addCommentToOrder(
+    orderId: string,
+    comment: CommentInterface,
+  ): Promise<CommentInterface[]> {
+    const order = await orderRepository.addCommentToOrder(orderId, comment);
+
+    return order.comments;
   }
 }
 

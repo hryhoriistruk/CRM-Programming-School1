@@ -22,6 +22,20 @@ const orderSchema = new Schema(
     already_paid: { type: Number, default: null },
     created_at: { type: Date, required: true },
     status: { type: String, enum: StatusEnum, required: true },
+    manager: { type: String, required: true, default: null },
+    group: { type: String, required: true, default: null },
+    msg: { type: String, required: true, default: null },
+    utm: { type: String, required: true },
+    comments: {
+      type: [
+        {
+          comment: { type: String, required: true },
+          manager: { type: String, required: true },
+          date: { type: Date, required: true },
+        },
+      ],
+      default: [],
+    },
   },
   {
     versionKey: false,
