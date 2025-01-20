@@ -11,16 +11,34 @@ export interface IOrderModel {
   email: string;
   phone: string;
   age: number;
-  course: CourseEnum;
-  course_format: CourseFormatEnum;
-  course_type: CourseTypeEnum;
+  course: CourseEnum | null;
+  course_format: CourseFormatEnum | null;
+  course_type: CourseTypeEnum | null;
   sum: number | null;
   already_paid: number | null;
   created_at: string;
-  status: StatusEnum;
+  status: StatusEnum | null;
   manager: string | null;
   group: string | null;
   message: string;
   utm: string;
   comments: ICommentData[] | [];
+}
+
+export interface IEditData extends Pick<IOrderModel,
+| "name"
+| "surname"
+| "group"
+| "status"
+| "sum"
+| "already_paid"
+| "email"
+| "course"
+| "phone"
+| "course_format"
+| "age"
+| "course_type"> {}
+
+export interface IUpdatedOrder extends IEditData {
+  orderId: string;
 }

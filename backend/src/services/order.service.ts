@@ -1,6 +1,7 @@
 import { ApiError } from "../errors/api-error";
 import { CommentInterface } from "../interfaces/comment.interface";
 import {
+  IOrderInterface,
   IOrderListQuery,
   IOrderResponseList,
 } from "../interfaces/order.interface";
@@ -24,6 +25,13 @@ class OrderService {
     const order = await orderRepository.addCommentToOrder(orderId, comment);
 
     return order.comments;
+  }
+
+  public async updateOrder(
+    orderId: string,
+    dto: IOrderInterface,
+  ): Promise<IOrderInterface> {
+    return await orderRepository.updateOrder(orderId, dto);
   }
 }
 

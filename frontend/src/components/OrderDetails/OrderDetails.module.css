@@ -1,0 +1,96 @@
+.detailsBlock {
+    display: flex;
+}
+
+.messageBlock {
+    width: 30%;
+}
+
+.commentsContainer {
+    width: 40%;
+}
+
+.commentsContainer form {
+    margin-bottom: 20px;
+}
+
+.commentsContainer form input {
+    width: 80%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 7px;
+    margin-right: 10px;
+}
+
+.commentsContainer form input:focus {
+    border: 2px solid #209041;
+    outline: none;
+}
+
+.commentsContainer form button {
+    width: calc(20% - 10px);
+    padding: 7px;
+    border: 1px solid #209041;
+    color: white;
+    border-radius: 5px;
+    background-color: #209041;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-bottom-color: #209041;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.comment p {
+    margin: 0;
+    padding: 5px;
+    word-wrap: break-word;
+}
+
+.commentAuthor {
+    display: flex;
+    background-color: #209041;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: white;
+}
+.commentAuthor p {
+    margin: 0;
+}
+
+.commentAuthor p:first-child {
+    margin-right: 15px;
+}
+
+.editButton {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.editButton button {
+    background-color: #209041;
+    border: 1px solid #209041;
+    color: white;
+    padding: 7px 16px;
+    font-size: 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-bottom: 10px;
+}
+
+.error {
+    color: red;
+}
+
+.errorEdit {
+    color: red;
+    align-self: flex-end;
+}

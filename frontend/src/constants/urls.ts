@@ -6,6 +6,7 @@ const orders = '/orders'
 const comment = orders + '/addComment'
 const groups = '/groups'
 const addGroup = groups + '/addGroup'
+const updateOrder = orders + '/update'
 
 const urls = {
   login: {
@@ -15,7 +16,8 @@ const urls = {
     base: refresh
   },
   orders: {
-    base: orders
+    base: orders,
+    update: updateOrder
   },
   comments: {
     base: comment

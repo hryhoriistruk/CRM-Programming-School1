@@ -115,6 +115,20 @@ class OrderRepository {
       throw new ApiError("You can't add comment to this order", 403);
     }
   }
+
+  public async updateOrder(
+    orderId: string,
+    dto: Partial<IOrderInterface>,
+  ): Promise<IOrderInterface> {
+    const order = await OrderModel.findByIdAndUpdate(orderId, dto, {
+      returnDocument: "after",
+    });
+
+    if (!order) {
+      throw new ApiError("Order not found", 404);
+    }
+    return order;
+  }
 }
 
 export const orderRepository = new OrderRepository();

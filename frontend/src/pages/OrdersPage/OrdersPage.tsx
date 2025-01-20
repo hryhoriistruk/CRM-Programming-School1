@@ -22,11 +22,11 @@ const OrdersPage = () => {
 
   useEffect(() => {
     const getOrders = async () => {
-        const response = await dispatch(ordersActions.fetchOrders({currentPage, sortBy, sortOrder}))
-        if (ordersActions.fetchOrders.rejected.match(response)) {
+        const response = await dispatch(ordersActions.getOrders({currentPage, sortBy, sortOrder}))
+        if (ordersActions.getOrders.rejected.match(response)) {
           try {
             await authService.refresh();
-            await dispatch(ordersActions.fetchOrders({currentPage, sortBy, sortOrder}))
+            await dispatch(ordersActions.getOrders({currentPage, sortBy, sortOrder}))
           } catch (e) {
             return navigate('/login');
           }

@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 
 import { CommentInterface } from "../interfaces/comment.interface";
-import { IOrderListQuery } from "../interfaces/order.interface";
+import {
+  IOrderInterface,
+  IOrderListQuery,
+} from "../interfaces/order.interface";
 import { orderService } from "../services/order.service";
 
 class OrderController {
@@ -25,6 +28,17 @@ class OrderController {
       const orderId: string = req.body.orderId;
       const response = await orderService.addCommentToOrder(orderId, comment);
       res.status(200).json(response);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  public async updateOrder(req: Request, res: Response, next: NextFunction) {
+    try {
+      const orderId: string = req.body.orderId;
+      const dto = req.body as IOrderInterface;
+      const order = await orderService.updateOrder(orderId, dto);
+      res.status(200).json(order);
     } catch (e) {
       next(e);
     }

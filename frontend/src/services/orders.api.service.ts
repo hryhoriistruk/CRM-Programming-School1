@@ -4,6 +4,7 @@ import {retrieveLocalStorageData} from "../_helpers/helpers";
 import {ITokenPair} from "../models/ITokenPair";
 import {IOrdersPaginatedModel} from "../models/IOrdersPaginatedModel";
 import {ICommentData} from "../models/ICommentModel";
+import {IOrderModel, IUpdatedOrder} from "../models/IOrderModel";
 
 const axiosInstance = axios.create({
   baseURL: baseUrl,
@@ -24,8 +25,12 @@ const ordersService = {
   },
 
   addCommentToOrder: async (commentData: ICommentData): Promise<ICommentData[]> => {
-      const response = await axios.post<ICommentData[]>(urls.comments.base, commentData);
+      const response = await axiosInstance.post<ICommentData[]>(urls.comments.base, commentData);
       return  response.data;
+  },
+
+  updateOrder: async (orderData: IUpdatedOrder): Promise<void> => {
+    await axiosInstance.patch<IOrderModel>(urls.orders.update, orderData);
   }
 }
 

@@ -16,4 +16,6 @@ router.get(
 
 router.post("/addComment", orderController.addCommentToOrder);
 
+router.patch("/update", orderController.updateOrder);
+
 export const orderRouter = router;
