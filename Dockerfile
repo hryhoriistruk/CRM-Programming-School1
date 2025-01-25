@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-MAINTAINER Hryhorii S.
+MAINTAINER Hryhorii.S
 
 RUN mkdir /app
 WORKDIR /app

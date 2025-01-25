@@ -56,6 +56,19 @@ export interface IOrderListQuery {
   page?: number;
   sortOrder?: SortOrderEnum;
   sortBy?: OrderListSortByEnum;
+  name?: string;
+  surname?: string;
+  email?: string;
+  phone?: string;
+  age?: number;
+  course?: CourseEnum;
+  course_format?: CourseFormatEnum;
+  course_type?: CourseTypeEnum;
+  status?: StatusEnum;
+  group?: string;
+  startDate?: string;
+  endDate?: string;
+  my?: boolean;
 }
 
 export interface IOrderResponseList extends IOrderListQuery {

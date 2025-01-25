@@ -1,0 +1,54 @@
+.filterBlock {
+    display: flex;
+    gap: 1rem;
+}
+
+.filtersSection {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 90vw;
+}
+
+.filterInput,
+.filterSelect {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 10px 10px 0;
+}
+
+.filterSelect {
+    height: 3.5rem;
+    width: calc(100% - 10px);
+}
+
+.filterActions {
+    width: 10vw;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+.filterButton,
+.filterResetButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #4caf50;
+    color: white;
+}
+
+.filterResetButton {
+    background-color: #f44336;
+}
+
+.filterCheckbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

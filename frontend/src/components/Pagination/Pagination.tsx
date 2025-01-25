@@ -1,3 +1,4 @@
+
 import React, {FC} from 'react';
 import styles from './Pagination.module.css'
 
@@ -39,31 +40,31 @@ const Pagination: FC<PaginationProps> = ({totalPages, currentPage, onPageChange}
 
   return (
     <div className={styles.paginationButtonsBlock}>
-        <button onClick={() => handlePageChange(currentPage - 1)}
-                className={currentPage === 1 ? styles.removeButton : ''}>
-          &lt;
-        </button>
+      <button onClick={() => handlePageChange(currentPage - 1)}
+              className={currentPage === 1 ? styles.removeButton : ''}>
+        &lt;
+      </button>
 
-        {getPageNumbers().map((page, index) =>
-          typeof page === 'number' ? (
-            <button
-              key={index}
-              onClick={() => handlePageChange(page)}
-              className={page === currentPage ? styles.clickedButton : ''}
-            >
-              {page}
-            </button>
-          ) : (
-            <span key={index} className={styles.dots}>
+      {getPageNumbers().map((page, index) =>
+        typeof page === 'number' ? (
+          <button
+            key={index}
+            onClick={() => handlePageChange(page)}
+            className={page === currentPage ? styles.clickedButton : ''}
+          >
+            {page}
+          </button>
+        ) : (
+          <span key={index} className={styles.dots}>
             ...
           </span>
-          )
-        )}
+        )
+      )}
 
-        <button onClick={() => handlePageChange(currentPage + 1)}
-                className={currentPage === totalPages ? styles.removeButton : ''} >
-          &gt;
-        </button>
+      <button onClick={() => handlePageChange(currentPage + 1)}
+              className={currentPage === totalPages ? styles.removeButton : ''} >
+        &gt;
+      </button>
     </div>
   );
 };

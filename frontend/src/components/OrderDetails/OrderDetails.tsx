@@ -40,7 +40,10 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
         try {
           const comments = await ordersService.addCommentToOrder(commentData)
           setComments(comments);
-          await dispatch(ordersActions.getOrders({currentPage, sortBy, sortOrder}))
+          await dispatch(ordersActions.getOrders({
+            page: currentPage,
+            sortBy,
+            sortOrder,}))
           reset();
         } catch (e) {
           console.error('Error sending comment', e);

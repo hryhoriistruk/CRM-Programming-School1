@@ -19,8 +19,9 @@ axiosInstance.interceptors.request.use((request) => {
 })
 
 const ordersService = {
-  getOrders: async (page: number, sortBy: string, sortOrder: string): Promise<IOrdersPaginatedModel | null>  => {
-    const response = await axiosInstance.get<IOrdersPaginatedModel>(urls.orders.base, {params: {page: page, sortBy, sortOrder}});
+  getOrders: async (params: Record<string, any>): Promise<IOrdersPaginatedModel | null>  => {
+    const queryString = new URLSearchParams(params).toString();
+    const response = await axiosInstance.get<IOrdersPaginatedModel>(`${urls.orders.base}?${queryString}`);
     return response.data;
   },
 

@@ -29,21 +29,23 @@
     gap: 20px;
 }
 
-.field {
-    margin-bottom: 10px;
-}
-
 .input, .select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #eae7e7;
+    margin-bottom: 10px;
 }
 
 .input:focus, .select:focus {
     border: 2px solid #209041;
     outline: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .groupSelect, .groupInput {
@@ -56,7 +58,7 @@
 }
 
 .addButton {
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .selectButton {
