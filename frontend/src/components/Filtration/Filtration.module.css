@@ -51,4 +51,13 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 20px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+.excelIcon {
+    cursor: pointer;
 }

@@ -28,6 +28,16 @@ class AuthController {
     }
   }
 
+  public async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tokenId = req.res.locals.tokenId as string;
+      await authService.logout(tokenId);
+      res.sendStatus(204);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   public async checkToken(req: Request, res: Response, next: NextFunction) {
     try {
       res.status(200).json();

@@ -1,0 +1,15 @@
+.headerBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: #209041;
+}
+
+.headerBlock div p {
+    padding-left: 10px;
+}
+
+.actionsBlock {
+    display: flex;
+    padding-right: 10px;
+}

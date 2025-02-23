@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef } from 'react';
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {authService} from "../../services/auth.api.service";
 import OrdersTable from "../../components/OrdersTable/OrdersTable";
@@ -24,13 +24,7 @@ const OrdersPage = () => {
     return filters;
   }, [searchParams]);
 
-  const isFirstLoad = useRef(true);
-
   useEffect(() => {
-    if (isFirstLoad.current) {
-      setSearchParams({ page: String(currentPage), sortBy: sortBy, sortOrder: sortOrder });
-      isFirstLoad.current = false;
-    }
 
     const getOrders = async () => {
       const response = await dispatch(
@@ -41,6 +35,7 @@ const OrdersPage = () => {
           ...queryFilters,
         })
       );
+
       if (ordersActions.getOrders.rejected.match(response)) {
         const errorMessage = response.payload;
 
@@ -88,11 +83,7 @@ const OrdersPage = () => {
 
   return (
     <div className={styles.container}>
-      <Filtration
-        onFilterChange={(filters) => {
-          updateSearchParams({ ...filters, page: "1" });
-        }}
-      />
+      <Filtration />
       <OrdersTable orders={orders} handleSortChange={handleSortChange} sortBy={sortBy} sortOrder={sortOrder} />
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.pagination}>

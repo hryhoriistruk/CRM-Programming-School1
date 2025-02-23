@@ -14,6 +14,7 @@ export const getOrders = createAsyncThunk(
   'orders/getOrders',
   async (params: { page: number; sortBy: string; sortOrder: string } & Record<string, any>, thunkAPI) => {
     try {
+      thunkAPI.dispatch(ordersActions.changeLoaderState(true));
       const response = await ordersService.getOrders(params);
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {

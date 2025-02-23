@@ -2,6 +2,7 @@ const baseUrl = 'http://localhost/api'
 
 const login = '/login';
 const refresh = '/refresh'
+const logout = '/logout'
 const orders = '/orders'
 const comment = orders + '/addComment'
 const groups = '/groups'
@@ -14,6 +15,9 @@ const urls = {
   },
   refresh: {
     base: refresh
+  },
+  logout: {
+    base: logout
   },
   orders: {
     base: orders,

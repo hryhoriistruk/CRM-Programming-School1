@@ -45,6 +45,10 @@ class AuthService {
     await tokenRepository.deleteById(oldTokenId);
     return tokens;
   }
+
+  public async logout(tokenId: string): Promise<void> {
+    await tokenRepository.deleteById(tokenId);
+  }
 }
 
 export const authService = new AuthService();

@@ -3,7 +3,7 @@ import Joi from 'joi';
 export const orderValidator = Joi.object({
   group: Joi.string().allow(null, '').optional(),
   name: Joi.string()
-    .pattern(/^[a-zA-Zа-яА-ЯёЁ]+$/u)
+    .pattern(/^[a-zA-Zа-яА-ЯёЁєґіїЄҐІЇ\s-]+$/u)
     .min(4)
     .max(20)
     .allow(null, '')
@@ -14,7 +14,7 @@ export const orderValidator = Joi.object({
       'string.max': 'Name must have at most 20 characters',
     }),
   surname: Joi.string()
-    .pattern(/^[a-zA-Zа-яА-ЯёЁ]+$/u)
+    .pattern(/^[a-zA-Zа-яА-ЯёЁєґіїЄҐІЇ\s-]+$/u)
     .min(4)
     .max(30)
     .allow(null, '')

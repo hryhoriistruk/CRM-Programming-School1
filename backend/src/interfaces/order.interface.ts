@@ -68,7 +68,7 @@ export interface IOrderListQuery {
   group?: string;
   startDate?: string;
   endDate?: string;
-  my?: boolean;
+  my?: string;
 }
 
 export interface IOrderResponseList extends IOrderListQuery {

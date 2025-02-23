@@ -87,13 +87,16 @@ const ModalEdit: FC<IOrderDetailsProps> = ({order, closeModal, manager}) => {
           course_format: formData.course_format ?? null,
           age: formData.age ?? 0,
           course_type: formData.course_type ?? null,
+          manager: manager ?? null,
         }
         try {
           await ordersService.updateOrder(updatedData);
           await dispatch(ordersActions.getOrders({
             page: currentPage,
             sortBy,
-            sortOrder,}))
+            sortOrder,
+            ...Object.fromEntries(searchParams.entries())
+          }))
           closeModal();
         } catch (e) {
           console.error('Error update order', e);

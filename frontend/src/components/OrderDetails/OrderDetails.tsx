@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {IOrderModel, IUpdatedOrder} from "../../models/IOrderModel";
+import {IOrderModel} from "../../models/IOrderModel";
 import {useForm} from "react-hook-form";
 import {IComment, ICommentData} from "../../models/ICommentModel";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
@@ -7,7 +7,7 @@ import {ordersService} from "../../services/orders.api.service";
 import styles from './OrderDetails.module.css';
 import {formatDate} from "../../_helpers/helpers";
 import {useSearchParams} from "react-router-dom";
-import {getOrders, ordersActions} from "../../redux/slices/orderSlice";
+import { ordersActions} from "../../redux/slices/orderSlice";
 import ModalEdit from "../ModalEdit/ModalEdit";
 
 interface IOrderDetailsProps {
@@ -43,7 +43,9 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
           await dispatch(ordersActions.getOrders({
             page: currentPage,
             sortBy,
-            sortOrder,}))
+            sortOrder,
+            ...Object.fromEntries(searchParams.entries())
+          }))
           reset();
         } catch (e) {
           console.error('Error sending comment', e);

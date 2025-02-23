@@ -43,6 +43,6 @@ export class OrdersValidator {
     group: joi.string().optional(),
     startDate: joi.date().optional(),
     endDate: joi.date().optional(),
-    my: joi.boolean().optional(),
+    my: joi.string().optional(),
   });
 }

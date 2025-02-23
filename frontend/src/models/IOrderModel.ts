@@ -37,7 +37,8 @@ export interface IEditData extends Pick<IOrderModel,
 | "phone"
 | "course_format"
 | "age"
-| "course_type"> {}
+| "course_type"
+  | "manager" > {}
 
 export interface IUpdatedOrder extends IEditData {
   orderId: string;

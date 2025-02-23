@@ -38,18 +38,23 @@ const authService = {
 
   },
 
-  refresh: async () => {
+  refresh: async (): Promise<void> => {
     const refreshToken = retrieveLocalStorageData<ITokenPair>('tokenPair').refreshToken;
     const response = await axiosInstance.post<ITokenPair>(urls.refresh.base, {refreshToken});
     localStorage.setItem('tokenPair', JSON.stringify(response.data));
   },
 
-  checkToken: async ()=> {
+  checkToken: async (): Promise<number> => {
     const accessToken = retrieveLocalStorageData<ITokenPair>('tokenPair').accessToken;
     const response = await axiosInstance.post<ITokenPair>('checkToken', {accessToken});
     return response.status
-  }
+  },
 
+  logout: async (): Promise<void> => {
+      await axiosInstance.post(urls.logout.base)
+      localStorage.removeItem('tokenPair');
+      localStorage.removeItem('authData');
+  }
 
 }
 

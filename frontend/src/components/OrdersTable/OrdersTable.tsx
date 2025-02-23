@@ -2,6 +2,8 @@ import React, {FC} from 'react';
 import {IOrderModel} from "../../models/IOrderModel";
 import styles from './OrdersTable.module.css'
 import Order from "../Order/Order";
+import Loader from "../Loader";
+import {useAppSelector} from "../../redux/store";
 
 interface IOrdersTableProps {
   orders: IOrderModel[];
@@ -11,6 +13,8 @@ interface IOrdersTableProps {
 }
 
 const OrdersTable: FC<IOrdersTableProps> = ({orders, handleSortChange, sortBy, sortOrder}) => {
+
+  const { loader} = useAppSelector(state => state.orders);
   return (
     <table className={styles.table}>
       <thead className={styles.tableHead}>
@@ -32,6 +36,7 @@ const OrdersTable: FC<IOrdersTableProps> = ({orders, handleSortChange, sortBy, s
           <th onClick={() => handleSortChange('manager')}>Manager {sortBy === 'manager' && (sortOrder === 'asc' ? '↑' : '↓')}</th>
         </tr>
       </thead>
+      {loader && <Loader/>}
       <tbody className={styles.tableBody}>
          {orders.map(order => <Order key={order._id} order={order}/>)}
       </tbody>
