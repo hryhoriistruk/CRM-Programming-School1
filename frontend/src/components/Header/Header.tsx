@@ -19,16 +19,26 @@ const Header = () => {
   }
 
   return (
-    <div className={styles.headerBlock}>
+    <header className={styles.headerBlock}>
       <div>
-        <p>Logo</p>
+        <p className={styles.logo}>Logo</p>
       </div>
       <div className={styles.actionsBlock}>
-        <p>{manager?.surname}</p>
-        <button onClick={logout}>Logout</button>
-        {manager?.role === 'admin' ? <button>AdminPanel</button> : ''}
+        <p className={styles.managerName}>{manager?.surname}</p>
+        {manager?.role === 'admin' ?
+          <img width="48" height="48" src="https://img.icons8.com/?size=100&id=v0eXWKgkKylB&format=png&color=FFFFFF" alt="admin panel"
+               className={styles.adminBtn}
+               onClick={() => {
+                  navigate('/admin');
+               }}
+          />
+          : ''}
+        <img width="48" height="48" src="https://img.icons8.com/?size=100&id=59781&format=png&color=FFFFFF" alt="exit"
+             onClick={logout}
+             className={styles.logoutBtn}
+        />
       </div>
-    </div>
+    </header>
   );
 };
 

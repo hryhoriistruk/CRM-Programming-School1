@@ -78,7 +78,7 @@ const OrderDetails: FC<IOrderDetailsProps> = ({order}) => {
       <div className={styles.commentsContainer}>
         <form onSubmit={handleSubmit(sendComment)}>
           <input type="text" {...register('comment')} placeholder={'Comment'}/>
-          <button>Submit</button>
+          <button className={styles.submitBtn}>Submit</button>
           {errorComment && <div className={styles.error}>It's not your order. You can't add comment</div>}
         </form>
         <div>

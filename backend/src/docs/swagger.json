@@ -68,6 +68,27 @@
         }
       }
     },
+    "/api/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Logout user",
+        "description": "Closed endpoint for logout user",
+        "operationId": "logout",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [{"jwt_token": []}],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Token is not provided"
+          }
+        }
+      }
+    },
     "/api/orders": {
       "get": {
         "tags": ["Orders"],
@@ -91,6 +112,141 @@
           },
           "404": {
             "description": "Orders not found"
+          }
+        }
+      }
+    },
+    "/api/orders/addComment": {
+      "post": {
+        "tags": ["Orders"],
+        "summary": "Add comment to order",
+        "description": "This is endpoint for adding comment to specific order",
+        "operationId": "addCommentToOrder",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Comment"
+            }
+          },
+          "403": {
+            "description": "You can't add comment to this order"
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "500": {
+            "description": "Failed to update order"
+          }
+        }
+      }
+    },
+    "/api/orders/update": {
+      "patch": {
+        "tags": ["Orders"],
+        "summary": "Update order",
+        "description": "This is endpoint to update order",
+        "operationId": "update",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/api/groups": {
+      "get": {
+        "tags": ["Groups"],
+        "summary": "Get list of all groups",
+        "description": "This is endpoint to get list of existed group",
+        "operationId": "getGroup",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/GroupsList"
+            }
+          },
+          "404": {
+            "description": "Groups not found"
+          }
+        }
+      }
+    },
+    "/api/groups/addGroup": {
+      "post": {
+        "tags": ["Groups"],
+        "summary": "Add group",
+        "description": "This is endpoint to add new group",
+        "operationId": "addGroup",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "group": {
+                  "type": "string",
+                  "example": "march-2025"
+                }
+              },
+              "required": ["groups"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          },
+          "500": {
+            "description": "Cannot add group"
           }
         }
       }
@@ -247,6 +403,10 @@
           "type": "integer",
           "example": "25"
         },
+        "group": {
+          "type": ["string", "null"],
+          "example": "march-2025"
+        },
         "course": {
           "type": "string",
           "enum": ["FS", "QACX", "JCX", "JSCX", "FE", "PCX"],
@@ -279,6 +439,23 @@
           "type": "string",
           "format": "date-time",
           "example": "2024-09-12T12:03:03.740Z"
+        },
+        "manager": {
+          "type": ["string", "null"],
+          "example": "march-2025"
+        },
+        "utm": {
+          "type": "string",
+          "example": "gad"
+        },
+        "msg": {
+          "type": ["string", "null"],
+          "example": "test"
+        },
+        "comments": {
+          "type": "array",
+          "example": "[{\"comment\": \"test comment\",\n      \"manager\": \"admin\",\n      \"date\": \"2025-02-27T14:30:00.000Z\",\n      \"_id\": \"67c03b524a9f3a23c203b500\"}]"
+
         }
       },
       "required": [
@@ -294,7 +471,12 @@
         "sum",
         "already_paid",
         "createdAt",
-        "status"
+        "status",
+        "group",
+        "manager",
+        "utm",
+        "msg",
+        "comments"
       ]
     },
     "OrdersListResponse": {
@@ -335,6 +517,127 @@
         "order",
         "limit",
         "page"
+      ]
+    },
+    "UpdateOrder": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "example": "66e2d8779a4fca98e3380fc4"
+        },
+        "name": {
+          "type": "string",
+          "example": "Anton23"
+        },
+        "surname": {
+          "type": "string",
+          "example": "Anton23"
+        },
+        "email": {
+          "type": "string",
+          "example": "moderator@gmail.com"
+        },
+        "phone": {
+          "type": "string",
+          "example": "+380933453453"
+        },
+        "age": {
+          "type": "integer",
+          "example": "25"
+        },
+        "group": {
+          "type": "string",
+          "example": "march-2025"
+        },
+        "course": {
+          "type": "string",
+          "enum": ["FS", "QACX", "JCX", "JSCX", "FE", "PCX"],
+          "example": "FS"
+        },
+        "course_format": {
+          "type": "string",
+          "enum": ["static", "online"],
+          "example": "static"
+        },
+        "course_type": {
+          "type": "string",
+          "enum": ["pro", "minimal", "premium", "incubator", "vip"],
+          "example": "pro"
+        },
+        "status": {
+          "type": ["string", "null"],
+          "enum": ["In work", "New", "Aggre", "Disaggre", "Dudbbing"],
+          "example": "active"
+        },
+        "sum": {
+          "type": ["integer", "null"],
+          "example": "4000"
+        },
+        "already_paid": {
+          "type": ["integer", "null"],
+          "example": "1000"
+        }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "example": "66e9105887e4475d35c0d601"
+        },
+        "comment": {
+          "type": "string",
+          "example": "This is a new order"
+        },
+        "manager": {
+          "type": "string",
+          "example": "admin"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2025-02-27T14:30:00Z"
+        }
+      },
+      "required": [
+        "orderId",
+        "comment",
+        "manager",
+        "date"
+      ]
+    },
+    "Group": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "66e9105887e4475d35c0d601"
+        },
+        "group": {
+          "type": "string",
+          "example": "march-2025"
+        }
+      },
+      "required": [
+        "_id",
+        "group"
+      ]
+    },
+    "GroupsList": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Group"
+          },
+          "description": "List of groups."
+        }
+      },
+      "required": [
+        "groups"
       ]
     }
   }
